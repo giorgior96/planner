@@ -16,7 +16,14 @@ export const PlannerProvider = ({ children }) => {
         const savedTasks = localStorage.getItem('startup_planner_tasks');
         if (savedTasks) {
             try {
-                return JSON.parse(savedTasks);
+                const parsed = JSON.parse(savedTasks);
+                // Migrate vecchi dati che non avevano i campi project o kpi
+                const migratedTasks = parsed.map(task => ({
+                    ...task,
+                    project: task.project || 'Batoo',
+                    kpi: task.kpi || ''
+                }));
+                return migratedTasks;
             } catch (err) {
                 console.error('Failed to parse tasks from localStorage', err);
             }
