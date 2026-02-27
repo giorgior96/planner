@@ -4,10 +4,9 @@ import { Clock, Users, Target, CheckCircle2, Circle, ArrowRight } from 'lucide-r
 import { DAYS_OF_WEEK, DAY_THEMES } from '../data';
 
 const TodayView = () => {
-    const { tasks } = usePlanner();
+    const { tasks, completedTasks, toggleTaskCompletion } = usePlanner();
     const [currentDay, setCurrentDay] = useState('');
     const [currentDate, setCurrentDate] = useState('');
-    const [completedTasks, setCompletedTasks] = useState(new Set());
 
     useEffect(() => {
         const today = new Date();
@@ -21,28 +20,7 @@ const TodayView = () => {
 
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         setCurrentDate(today.toLocaleDateString('it-IT', options));
-
-        // Load completed tasks for today from session storage to give a sense of progress that resets daily
-        const saved = sessionStorage.getItem('nautica_completed_today');
-        if (saved) {
-            try {
-                setCompletedTasks(new Set(JSON.parse(saved)));
-            } catch (e) { }
-        }
     }, []);
-
-    const toggleTaskCompletion = (id) => {
-        setCompletedTasks(prev => {
-            const newSet = new Set(prev);
-            if (newSet.has(id)) {
-                newSet.delete(id);
-            } else {
-                newSet.add(id);
-            }
-            sessionStorage.setItem('nautica_completed_today', JSON.stringify([...newSet]));
-            return newSet;
-        });
-    };
 
     // Get tasks for the current day
     const todayTasks = tasks.filter(t => t.day === currentDay);

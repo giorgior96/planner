@@ -24,10 +24,56 @@ export const PlannerProvider = ({ children }) => {
         return initialData;
     });
 
+    const [completedTasks, setCompletedTasksState] = useState(() => {
+        const savedCompleted = localStorage.getItem('nautica_completed_today');
+        if (savedCompleted) {
+            try {
+                return new Set(JSON.parse(savedCompleted));
+            } catch (err) {
+                console.error('Failed to parse completed tasks', err);
+            }
+        }
+        return new Set();
+    });
+
+    // Listen to localStorage changes across tabs
+    useEffect(() => {
+        const handleStorageChange = (e) => {
+            if (e.key === 'startup_planner_tasks' && e.newValue) {
+                try {
+                    setTasks(JSON.parse(e.newValue));
+                } catch (err) { }
+            }
+            if (e.key === 'nautica_completed_today' && e.newValue) {
+                try {
+                    setCompletedTasksState(new Set(JSON.parse(e.newValue)));
+                } catch (err) { }
+            }
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        return () => window.removeEventListener('storage', handleStorageChange);
+    }, []);
+
     // Save to local storage whenever tasks change
     useEffect(() => {
         localStorage.setItem('startup_planner_tasks', JSON.stringify(tasks));
     }, [tasks]);
+
+    const setCompletedTasks = (newCompletedKeys) => {
+        setCompletedTasksState(newCompletedKeys);
+        localStorage.setItem('nautica_completed_today', JSON.stringify([...newCompletedKeys]));
+    };
+
+    const toggleTaskCompletion = (id) => {
+        const newSet = new Set(completedTasks);
+        if (newSet.has(id)) {
+            newSet.delete(id);
+        } else {
+            newSet.add(id);
+        }
+        setCompletedTasks(newSet);
+    };
 
     const addTask = (newTask) => {
         setTasks((prev) => [...prev, { ...newTask, id: Date.now().toString() }]);
@@ -48,6 +94,8 @@ export const PlannerProvider = ({ children }) => {
         addTask,
         updateTask,
         deleteTask,
+        completedTasks,
+        toggleTaskCompletion
     };
 
     return (
