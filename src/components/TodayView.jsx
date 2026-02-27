@@ -129,8 +129,19 @@ const TodayView = () => {
                                                 </div>
                                             </div>
 
+                                            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                                                <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: 'var(--color-background)', color: 'var(--color-primary)' }}>
+                                                    {task.project || 'Batoo'}
+                                                </span>
+                                                {task.kpi && task.kpi.length > 0 && (
+                                                    <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: 'rgba(56, 189, 248, 0.1)', color: '#0284c7' }}>
+                                                        KPI: {task.kpi}
+                                                    </span>
+                                                )}
+                                            </div>
+
                                             <div style={{
-                                                marginTop: '0.5rem',
+                                                marginTop: '0.2rem',
                                                 display: 'flex', gap: '0.75rem', alignItems: 'flex-start'
                                             }}>
                                                 <div style={{ width: '3px', alignSelf: 'stretch', backgroundColor: bgColor, opacity: 0.8, borderRadius: '4px' }}></div>

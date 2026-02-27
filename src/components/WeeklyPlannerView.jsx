@@ -125,6 +125,17 @@ const WeeklyPlannerView = () => {
                                                 </div>
                                             </div>
 
+                                            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                                                <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: 'var(--color-background)', color: 'var(--color-primary)' }}>
+                                                    {task.project || 'Batoo'}
+                                                </span>
+                                                {task.kpi && task.kpi.length > 0 && (
+                                                    <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: 'rgba(56, 189, 248, 0.1)', color: '#0284c7' }}>
+                                                        KPI: {task.kpi}
+                                                    </span>
+                                                )}
+                                            </div>
+
                                             <div style={{ backgroundColor: 'var(--color-background)', padding: '1rem', borderRadius: 'var(--radius-md)', marginTop: 'auto', borderLeft: '2px solid rgba(0,0,0,0.05)' }}>
                                                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.95rem', color: 'var(--color-text)', lineHeight: 1.4 }}>
                                                     <Target size={16} style={{ color: 'var(--color-warning)', flexShrink: 0, marginTop: '2px' }} />

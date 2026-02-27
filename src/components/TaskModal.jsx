@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { usePlanner } from '../context/PlannerContext';
-import { DAYS_OF_WEEK } from '../data';
+import { DAYS_OF_WEEK, PROJECTS } from '../data';
 import { X, Save } from 'lucide-react';
 
 const TaskModal = ({ isOpen, onClose, editingTask = null, defaultDay = 'Lunedì' }) => {
@@ -11,7 +11,9 @@ const TaskModal = ({ isOpen, onClose, editingTask = null, defaultDay = 'Lunedì'
         time: '',
         task: '',
         team: '',
-        goal: ''
+        goal: '',
+        project: 'Batoo',
+        kpi: ''
     });
 
     useEffect(() => {
@@ -23,7 +25,9 @@ const TaskModal = ({ isOpen, onClose, editingTask = null, defaultDay = 'Lunedì'
                 time: '',
                 task: '',
                 team: '',
-                goal: ''
+                goal: '',
+                project: 'Batoo',
+                kpi: ''
             });
         }
     }, [editingTask, defaultDay, isOpen]);
@@ -92,6 +96,22 @@ const TaskModal = ({ isOpen, onClose, editingTask = null, defaultDay = 'Lunedì'
                 </div>
 
                 <form onSubmit={handleSubmit} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 500 }}>Progetto</label>
+                            <select name="project" value={formData.project || 'Batoo'} onChange={handleChange} required>
+                                {PROJECTS.map(proj => (
+                                    <option key={proj} value={proj}>{proj}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 500 }}>KPI (Opzionale)</label>
+                            <input type="text" name="kpi" value={formData.kpi || ''} onChange={handleChange} placeholder="Es. Conversion Rate..." />
+                        </div>
+                    </div>
+
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 500 }}>Giorno</label>
                         <select name="day" value={formData.day} onChange={handleChange} required>
