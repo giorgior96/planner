@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { usePlanner } from '../context/PlannerContext';
-import { DAYS_OF_WEEK } from '../data';
+import { DAYS_OF_WEEK, PROJECT_COLORS } from '../data';
 import TaskModal from './TaskModal';
 import { Plus, Edit2, Trash2, Clock, Users, Target } from 'lucide-react';
 
@@ -126,7 +126,7 @@ const WeeklyPlannerView = () => {
                                             </div>
 
                                             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                                                <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: 'var(--color-background)', color: 'var(--color-primary)' }}>
+                                                <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: PROJECT_COLORS[task.project || 'Batoo']?.bg || 'var(--color-background)', color: PROJECT_COLORS[task.project || 'Batoo']?.text || 'var(--color-primary)' }}>
                                                     {task.project || 'Batoo'}
                                                 </span>
                                                 {task.kpi && task.kpi.length > 0 && (

@@ -1,5 +1,11 @@
 export const PROJECTS = ['Batoo', 'Linfa', 'Altro'];
 
+export const PROJECT_COLORS = {
+  Batoo: { bg: 'rgba(37, 99, 235, 0.15)', text: '#2563eb' },      // Blue
+  Linfa: { bg: 'rgba(16, 185, 129, 0.15)', text: '#059669' },     // Green
+  Altro: { bg: 'rgba(156, 163, 175, 0.15)', text: '#4b5563' }     // Gray
+};
+
 export const initialData = [
   { id: '1', day: 'Lunedì', time: '09:30 - 10:00', task: 'Stand-up Meeting di Team', team: 'Tutto il team', goal: 'Allineamento rapido: cosa si fa oggi, eventuali blocchi.', project: 'Batoo', kpi: '' },
   { id: '2', day: 'Lunedì', time: '10:00 - 11:00', task: 'Analisi Metriche (Weekly Review)', team: 'Founder, Team Lead', goal: 'Valutare i KPI della settimana precedente (nuovi broker, lead generati).', project: 'Batoo', kpi: 'Nuovi lead, Conversion rate' },

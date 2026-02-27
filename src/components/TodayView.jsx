@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePlanner } from '../context/PlannerContext';
 import { Clock, Users, Target, CheckCircle2, Circle, ArrowRight } from 'lucide-react';
-import { DAYS_OF_WEEK, DAY_THEMES } from '../data';
+import { DAYS_OF_WEEK, DAY_THEMES, PROJECT_COLORS } from '../data';
 
 const TodayView = () => {
     const { tasks, completedTasks, toggleTaskCompletion } = usePlanner();
@@ -130,7 +130,7 @@ const TodayView = () => {
                                             </div>
 
                                             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                                                <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: 'var(--color-background)', color: 'var(--color-primary)' }}>
+                                                <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: PROJECT_COLORS[task.project || 'Batoo']?.bg || 'var(--color-background)', color: PROJECT_COLORS[task.project || 'Batoo']?.text || 'var(--color-primary)' }}>
                                                     {task.project || 'Batoo'}
                                                 </span>
                                                 {task.kpi && task.kpi.length > 0 && (
